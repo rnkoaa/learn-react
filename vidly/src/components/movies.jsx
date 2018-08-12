@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import { getMovies, deleteMovie } from '../services/fakeMovieService';
 
 class Movies extends Component {
-  deleteMovies = movie => {
-    console.log('Delete Movie: ', movie);
-    deleteMovie(movie._id);
+  state = {
+    movies: getMovies()
   };
-  // state = {  }
+
+  //   constructor() {
+  //       super();
+  //       this.setState({ movies: getMovies() });
+  //   }
+
+  deleteMovies = movie => {
+    const { movies } = this.state;
+    const filterdMovies = movies.filter(m => m._id !== movie._id);
+    this.setState({ movies: filterdMovies });
+  };
+
   render() {
     return (
       <table className="table table-bordered table-striped">
@@ -19,14 +29,13 @@ class Movies extends Component {
             <th scope="col" />
           </tr>
         </thead>
-        <tbody>
-          {this.renderMovieRows(getMovies())}
-        </tbody>
+        <tbody>{this.renderMovieRows()}</tbody>
       </table>
     );
   }
 
-  renderMovieRows(movies) {
+  renderMovieRows() {
+    const { movies } = this.state;
     if (movies.length === 0) {
       return <h1>There are no movies</h1>;
     }
@@ -41,10 +50,9 @@ class Movies extends Component {
             <td>
               <button
                 onClick={() => this.deleteMovies(movie)}
-                className="btn btn-danger m-2"
+                className="btn btn-danger btn-sm"
               >
-                {' '}
-                Delete{' '}
+                Delete
               </button>
             </td>
           </React.Fragment>
