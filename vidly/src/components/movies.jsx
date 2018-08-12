@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
-import { getMovies, deleteMovie } from '../services/fakeMovieService';
+import { getMovies } from '../services/fakeMovieService';
+import Like from './common/like';
 
 class Movies extends Component {
   state = {
     movies: getMovies()
   };
 
-  //   constructor() {
-  //       super();
-  //       this.setState({ movies: getMovies() });
-  //   }
-
   deleteMovies = movie => {
     const { movies } = this.state;
     const filterdMovies = movies.filter(m => m._id !== movie._id);
     this.setState({ movies: filterdMovies });
+  };
+
+  clickLike = movie => {
+    const movies = [...this.state.movies];
+    const clonedMovie = {...movie};
+    const idx = movies.indexOf(movie);
+    clonedMovie.liked = !movie.liked;
+    movies[idx] = clonedMovie;
+    this.setState({ movies });
   };
 
   render() {
@@ -26,6 +31,7 @@ class Movies extends Component {
             <th scope="col">Genre</th>
             <th scope="col">Stock</th>
             <th scope="col">Rate</th>
+            <th scope="col" />
             <th scope="col" />
           </tr>
         </thead>
@@ -47,6 +53,9 @@ class Movies extends Component {
             <td>{movie.genre.name}</td>
             <td>{movie.numberInStock}</td>
             <td>{movie.dailyRentalRate}</td>
+            <td>
+              <Like liked={movie.liked} onClick={() => this.clickLike(movie)} />
+            </td>
             <td>
               <button
                 onClick={() => this.deleteMovies(movie)}
