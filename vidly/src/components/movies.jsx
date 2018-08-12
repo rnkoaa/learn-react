@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
 import Like from './common/like';
 import Pagination from './common/pagination';
+import {paginate} from '../utils/paginate'
+
 
 class Movies extends Component {
   state = {
+    pageSize: 4,
+    currentPage: 1,
     movies: getMovies()
   };
 
@@ -24,10 +28,16 @@ class Movies extends Component {
   };
 
   handlePageChange = pageNumber => {
-    console.log(pageNumber);
+    this.setState({currentPage: pageNumber});
   }
 
   render() {
+    const {length: count} = this.state.movies;
+    const {pageSize, currentPage} = this.state;
+
+    if(count === 0) return <p> There are no movies in the database </p>
+
+    const movies = paginate(this.state.movies,  currentPage, pageSize) ;
     return (
       <div>
         <table className="table table-bordered table-striped">
@@ -41,17 +51,17 @@ class Movies extends Component {
               <th scope="col" />
             </tr>
           </thead>
-          <tbody>{this.renderMovieRows()}</tbody>
+          <tbody>{this.renderMovieRows(movies)}</tbody>
         </table>
         <Pagination itemsCount={this.state.movies.length}
-        pageSize={4}
+        pageSize={this.state.pageSize}
+        currentPage={this.state.currentPage}
         onPageChanged={this.handlePageChange} />
       </div>
     );
   }
 
-  renderMovieRows() {
-    const { movies } = this.state;
+  renderMovieRows(movies) {
     if (movies.length === 0) {
       return <h1>There are no movies</h1>;
     }

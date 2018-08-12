@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
 class Pagination extends Component {
   render() {
-    const { itemsCount, pageSize } = this.props;
+    const { itemsCount, pageSize, currentPage, onPageChanged } = this.props;
 
     const pagesCount = Math.ceil(itemsCount / pageSize);
     if (pagesCount === 1) {
-        return null;
+      return null;
     }
     const pages = _.range(1, pagesCount + 1);
     return (
@@ -20,19 +20,17 @@ class Pagination extends Component {
                 <span className="sr-only">Previous</span>
               </a>
             </li>
-            {/* <li className="page-item">
-              <a className="page-link">1</a>
-            </li>
-            <li className="page-item">
-              <a className="page-link">2</a>
-            </li>
-            <li className="page-item">
-              <a className="page-link">3</a>
-            </li> */}
             {pages.map(page => {
               return (
-                <li key={page} className="page-item">
-                  <a className="page-link">{page}</a>
+                <li
+                  key={page}
+                  className={
+                    page === currentPage ? 'page-item active' : 'page-item'
+                  }
+                >
+                  <a className="page-link" onClick={() => onPageChanged(page)}>
+                    {page}
+                  </a>
                 </li>
               );
             })}
@@ -49,4 +47,10 @@ class Pagination extends Component {
   }
 }
 
+Pagination.propTypes = {
+  itemsCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChanged: PropTypes.func.isRequired
+};
 export default Pagination;
