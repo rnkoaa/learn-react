@@ -1,64 +1,73 @@
 import React, { Component } from 'react';
 
 class Counter extends Component {
-  state = {
-    counter: 0,
-    imgUrl: 'https://picsum.photos/200',
-    tags: ['tag-1', 'tag-2', 'tag-3']
-  };
+  // state = {
+  //   value: this.props.counter.value,
+  //   imgUrl: 'https://picsum.photos/200',
+  //   tags: ['tag-1', 'tag-2', 'tag-3']
+  // };
 
-  styles = {
-    fontSize: 20,
-    fontWeight: 'bold'
-  };
-
-  handleIncrement = e => {
-    // Console.log('Handle Increment');
-    console.log(e);
-    let { counter: count } = this.state;
-
-    this.setState({ counter: count + 1 });
-  };
+  // styles = {
+  //   fontSize: 20,
+  //   fontWeight: 'bold'
+  // };
 
   render() {
     return (
-      <React.Fragment>
+      <div className="row">
+        <div className="col-1">
+          <span className={this.getBadgeClasses()}> {this.formatCount()}</span>
+        </div>
+        <div className="col">
+          <button
+            onClick={() => this.props.onIncrement(this.props.counter)}
+            className="btn btn-secondary btn-sm mr-2"
+          >
+            +
+          </button>
+          <button
+            onClick={() => this.props.onDecrement(this.props.counter)}
+            className="btn btn-secondary btn-sm mr-2"
+          >
+            -
+          </button>
+          <button
+            onClick={() => this.props.onDelete(this.props.counter.id)}
+            className="btn btn-danger btn-sm mr-2"
+          >
+            x
+          </button>
+        </div>
         {/* <img src={this.state.imgUrl} /> */}
-        <span className={this.getBadgeClasses()}> {this.formatCount()}</span>
-        <button
-          onClick={() => this.handleIncrement({ id: 1 })}
-          className="btn btn-secondary btn-sm"
-        >
-          {' '}
-          Increment{' '}
-        </button>
-        {this.renderTags()}
-      </React.Fragment>
+
+        {/* {this.renderTags()} */}
+      </div>
     );
   }
 
   // conditional rendering of
-  renderTags() {
-    if (this.state.tags.length === 0) {
-      return <p> there are No Tags </p>;
-    }
-    return (
-      <ul>
-        {this.state.tags.map(tag => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-    );
-  }
+  // renderTags() {
+  //   if (this.state.tags.length === 0) {
+  //     return <p> there are No Tags </p>;
+  //   }
+  //   return (
+  //     <ul>
+  //       {this.state.tags.map(tag => (
+  //         <li key={tag}>{tag}</li>
+  //       ))}
+  //     </ul>
+  //   );
+  // }
 
   formatCount = () => {
-    const { counter: count } = this.state;
-    return count === 0 ? 'zero' : count;
+    const { value } = this.props.counter;
+    return value === 0 ? 'zero' : value;
   };
 
   getBadgeClasses() {
     let classes = 'badge m-2 ';
-    classes += this.state.counter === 0 ? 'badge-warning' : 'badge-primary';
+    classes +=
+      this.props.counter.value === 0 ? 'badge-warning' : 'badge-primary';
     return classes;
   }
 }
