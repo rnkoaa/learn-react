@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService';
 import Like from './common/like';
+import Pagination from './common/pagination';
 
 class Movies extends Component {
   state = {
@@ -15,28 +16,37 @@ class Movies extends Component {
 
   clickLike = movie => {
     const movies = [...this.state.movies];
-    const clonedMovie = {...movie};
+    const clonedMovie = { ...movie };
     const idx = movies.indexOf(movie);
     clonedMovie.liked = !movie.liked;
     movies[idx] = clonedMovie;
     this.setState({ movies });
   };
 
+  handlePageChange = pageNumber => {
+    console.log(pageNumber);
+  }
+
   render() {
     return (
-      <table className="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Genre</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Rate</th>
-            <th scope="col" />
-            <th scope="col" />
-          </tr>
-        </thead>
-        <tbody>{this.renderMovieRows()}</tbody>
-      </table>
+      <div>
+        <table className="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Genre</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Rate</th>
+              <th scope="col" />
+              <th scope="col" />
+            </tr>
+          </thead>
+          <tbody>{this.renderMovieRows()}</tbody>
+        </table>
+        <Pagination itemsCount={this.state.movies.length}
+        pageSize={4}
+        onPageChanged={this.handlePageChange} />
+      </div>
     );
   }
 
