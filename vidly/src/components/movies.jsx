@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
-import { getMovies } from '../services/fakeMovieService';
 import Like from './common/like';
+import Genres from "./genres";
 import Pagination from './common/pagination';
 import {paginate} from '../utils/paginate'
+import { getMovies } from '../services/fakeMovieService';
+import { getGenres } from '../services/fakeGenreService';
 
 
 class Movies extends Component {
   state = {
     pageSize: 4,
     currentPage: 1,
-    movies: getMovies()
+    movies: [],
+    selectedMovies: [],
+    selectedGenre: {},
+    genres: []
   };
+
+  componentDidMount() {
+    this.setState({
+      movies: getMovies(),
+      selectedMovies: getMovies(),
+    genres: getGenres()})
+  }
 
   deleteMovies = movie => {
     const { movies } = this.state;
@@ -27,36 +39,59 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
+  selectMoviesByGenre = (genre) => {
+    if (genre._id === "all") {
+      this.setState({
+        selectedGenre: genre,
+        selectedMovies: this.state.movies
+      })
+    } else {
+      const movies = [...this.state.movies]
+      const genreMovies = movies.filter(m => m.genre._id === genre._id);
+      this.setState({
+        selectedGenre: genre,
+        currentPage: 1,
+        selectedMovies: genreMovies
+      })
+    }
+  }
+
   handlePageChange = pageNumber => {
     this.setState({currentPage: pageNumber});
   }
 
   render() {
-    const {length: count} = this.state.movies;
+    const {length: count} = this.state.selectedMovies;
     const {pageSize, currentPage} = this.state;
 
     if(count === 0) return <p> There are no movies in the database </p>
 
-    const movies = paginate(this.state.movies,  currentPage, pageSize) ;
+    const selectedMovies = paginate(this.state.selectedMovies,  currentPage, pageSize) ;
     return (
-      <div>
-        <table className="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Genre</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Rate</th>
-              <th scope="col" />
-              <th scope="col" />
-            </tr>
-          </thead>
-          <tbody>{this.renderMovieRows(movies)}</tbody>
-        </table>
-        <Pagination itemsCount={this.state.movies.length}
-        pageSize={this.state.pageSize}
-        currentPage={this.state.currentPage}
-        onPageChanged={this.handlePageChange} />
+      <div className="row">
+        <div className="col-2">
+          <Genres selectedGenre={this.state.selectedGenre} genreClicked = {this.selectMoviesByGenre} />
+        </div>
+        <div className="col">
+          <p> There are {this.state.selectedMovies.length} Movies in the database</p>
+          <table className="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Rate</th>
+                <th scope="col" />
+                <th scope="col" />
+              </tr>
+            </thead>
+            <tbody>{this.renderMovieRows(selectedMovies)}</tbody>
+          </table>
+          <Pagination itemsCount={this.state.selectedMovies.length}
+          pageSize={this.state.pageSize}
+          currentPage={this.state.currentPage}
+          onPageChanged={this.handlePageChange} />
+        </div>
       </div>
     );
   }
