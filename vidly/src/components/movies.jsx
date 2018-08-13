@@ -13,7 +13,7 @@ class Movies extends Component {
     currentPage: 1,
     movies: [],
     selectedMovies: [],
-    selectedGenre: {},
+    selectedGenre: {name: "All", _id: "all"},
     genres: []
   };
 
@@ -21,13 +21,14 @@ class Movies extends Component {
     this.setState({
       movies: getMovies(),
       selectedMovies: getMovies(),
-    genres: getGenres()})
+      genres: [{name: "All", _id: "all"}, ...getGenres()]
+    })
   }
 
   deleteMovies = movie => {
     const { movies } = this.state;
-    const filterdMovies = movies.filter(m => m._id !== movie._id);
-    this.setState({ movies: filterdMovies });
+    const filteredMovies = movies.filter(m => m._id !== movie._id);
+    this.setState({ movies: filteredMovies });
   };
 
   clickLike = movie => {
@@ -41,9 +42,11 @@ class Movies extends Component {
 
   selectMoviesByGenre = (genre) => {
     if (genre._id === "all") {
+      const movies = [...this.state.movies]
       this.setState({
         selectedGenre: genre,
-        selectedMovies: this.state.movies
+        currentPage: 1,
+        selectedMovies: movies
       })
     } else {
       const movies = [...this.state.movies]
@@ -70,7 +73,7 @@ class Movies extends Component {
     return (
       <div className="row">
         <div className="col-2">
-          <Genres selectedGenre={this.state.selectedGenre} genreClicked = {this.selectMoviesByGenre} />
+          <Genres selectedGenre={this.state.selectedGenre} onItemSelected = {this.selectMoviesByGenre} />
         </div>
         <div className="col">
           <p> There are {this.state.selectedMovies.length} Movies in the database</p>
