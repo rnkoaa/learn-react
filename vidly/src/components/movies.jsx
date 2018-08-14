@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import Like from './common/like';
+import React, { Component } from "react";
+import Like from "./common/like";
 import Genres from "./genres";
-import Pagination from './common/pagination';
-import {paginate} from '../utils/paginate'
-import { getMovies } from '../services/fakeMovieService';
-import { getGenres } from '../services/fakeGenreService';
-
+import Pagination from "./common/pagination";
+import Table from "./common/table";
+import { paginate } from "../utils/paginate";
+import { getMovies } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
+// import _ from "lodash";
 
 class Movies extends Component {
   state = {
@@ -13,7 +14,50 @@ class Movies extends Component {
     currentPage: 1,
     movies: [],
     selectedMovies: [],
-    selectedGenre: {name: "All", _id: "all"},
+    columns: [
+      {
+        label: "Title",
+        dataPath: "title",
+        key: "title",
+        sortable: true
+      },
+      {
+        label: "Genre",
+        dataPath: "genre.name",
+        key: "genre.name",
+        sortable: true
+      },
+      {
+        label: "Stock",
+        dataPath: "numberInStock",
+        key: "numberInStock",
+        sortable: true
+      },
+      {
+        label: "Rate",
+        dataPath: "dailyRentalRate",
+        key: "dailyRentalRate",
+        sortable: true
+      },
+      {
+        label: "",
+        key: "like",
+        content: (movie) => <Like liked={movie.liked} onClick={() => this.props.clickLike(movie)} />,
+        sortable: false
+      },
+      {
+        label: "",
+        key: "delete",
+        content: (movie) => 
+          <button onClick={() => this.props.deleteMovies(movie)} className="btn btn-danger btn-sm">
+            Delete
+          </button>
+        ,
+        sortable: false
+      }
+    ],
+    sortColumn: { property: "title", sortOrder: "asc" },
+    selectedGenre: { name: "All", _id: "all" },
     genres: []
   };
 
@@ -21,8 +65,8 @@ class Movies extends Component {
     this.setState({
       movies: getMovies(),
       selectedMovies: getMovies(),
-      genres: [{name: "All", _id: "all"}, ...getGenres()]
-    })
+      genres: [{ name: "All", _id: "all" }, ...getGenres()]
+    });
   }
 
   deleteMovies = movie => {
@@ -40,60 +84,84 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  selectMoviesByGenre = (genre) => {
+  selectMoviesByGenre = genre => {
     if (genre._id === "all") {
-      const movies = [...this.state.movies]
+      const movies = [...this.state.movies];
       this.setState({
         selectedGenre: genre,
         currentPage: 1,
         selectedMovies: movies
-      })
+      });
     } else {
-      const movies = [...this.state.movies]
+      const movies = [...this.state.movies];
       const genreMovies = movies.filter(m => m.genre._id === genre._id);
       this.setState({
         selectedGenre: genre,
         currentPage: 1,
         selectedMovies: genreMovies
-      })
+      });
     }
-  }
+  };
+
+  sortMovies = sortProperty => {
+    const sortColumn = { ...this.state.sortColumn };
+    if (sortColumn.property === sortProperty) {
+      sortColumn.sortOrder = sortColumn.sortOrder === "asc" ? "desc" : "asc";
+    } else {
+      sortColumn.property = sortProperty;
+      sortColumn.sortOrder = "asc";
+    }
+    this.setState({
+      sortColumn
+    });
+  };
 
   handlePageChange = pageNumber => {
-    this.setState({currentPage: pageNumber});
-  }
+    this.setState({ currentPage: pageNumber });
+  };
 
   render() {
-    const {length: count} = this.state.selectedMovies;
-    const {pageSize, currentPage} = this.state;
+    const { length: count } = this.state.selectedMovies;
+    const { pageSize, currentPage } = this.state;
 
-    if(count === 0) return <p> There are no movies in the database </p>
+    if (count === 0) return <p> There are no movies in the database </p>;
 
-    const selectedMovies = paginate(this.state.selectedMovies,  currentPage, pageSize) ;
+    // const sortedMovies = _.orderBy(
+    //   this.state.selectedMovies,
+    //   [this.state.sortColumn.property],
+    //   [this.state.sortColumn.sortOrder]
+    // );
+
+    const selectedMovies = paginate(this.state.selectedMovies, currentPage, pageSize);
+
     return (
       <div className="row">
         <div className="col-2">
-          <Genres selectedGenre={this.state.selectedGenre} onItemSelected = {this.selectMoviesByGenre} />
+          <Genres selectedGenre={this.state.selectedGenre} onItemSelected={this.selectMoviesByGenre} />
         </div>
         <div className="col">
           <p> There are {this.state.selectedMovies.length} Movies in the database</p>
-          <table className="table table-bordered table-striped">
+          <Table
+            rowKeyProperty={"_id"}
+            data={selectedMovies}
+            columns={this.state.columns}
+            onSort={this.onSort}
+          />
+          {/* <table className="table table-bordered table-striped">
             <thead>
               <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Genre</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Rate</th>
                 <th scope="col" />
                 <th scope="col" />
               </tr>
             </thead>
             <tbody>{this.renderMovieRows(selectedMovies)}</tbody>
-          </table>
-          <Pagination itemsCount={this.state.selectedMovies.length}
-          pageSize={this.state.pageSize}
-          currentPage={this.state.currentPage}
-          onPageChanged={this.handlePageChange} />
+    </table> */}
+          <Pagination
+            itemsCount={this.state.selectedMovies.length}
+            pageSize={this.state.pageSize}
+            currentPage={this.state.currentPage}
+            onPageChanged={this.handlePageChange}
+          />
         </div>
       </div>
     );
@@ -107,18 +175,11 @@ class Movies extends Component {
       <tr key={movie._id}>
         {
           <React.Fragment>
-            <td>{movie.title}</td>
-            <td>{movie.genre.name}</td>
-            <td>{movie.numberInStock}</td>
-            <td>{movie.dailyRentalRate}</td>
             <td>
               <Like liked={movie.liked} onClick={() => this.clickLike(movie)} />
             </td>
             <td>
-              <button
-                onClick={() => this.deleteMovies(movie)}
-                className="btn btn-danger btn-sm"
-              >
+              <button onClick={() => this.deleteMovies(movie)} className="btn btn-danger btn-sm">
                 Delete
               </button>
             </td>
