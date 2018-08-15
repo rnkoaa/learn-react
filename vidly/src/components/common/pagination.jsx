@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import _ from "lodash";
+import PropTypes from "prop-types";
 class Pagination extends Component {
   render() {
-    const { itemsCount, pageSize, currentPage, onPageChanged } = this.props;
+    const { itemsCount, pageSize, currentPage } = this.props;
 
     const pagesCount = Math.ceil(itemsCount / pageSize);
     if (pagesCount === 1) {
@@ -22,13 +22,8 @@ class Pagination extends Component {
             </li>
             {pages.map(page => {
               return (
-                <li
-                  key={page}
-                  className={
-                    page === currentPage ? 'page-item active' : 'page-item'
-                  }
-                >
-                  <a className="page-link" onClick={() => onPageChanged(page)}>
+                <li key={page} className={page === currentPage ? "page-item active" : "page-item"}>
+                  <a className="page-link" onClick={() => this.props.onPageChanged(page)}>
                     {page}
                   </a>
                 </li>

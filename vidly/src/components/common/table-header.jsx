@@ -3,18 +3,21 @@ import React, { Component } from "react";
 class TableHeader extends Component {
   state = {};
 
-  // sortMovies = sortProperty => {
-  //   const sortColumn = { ...this.state.sortColumn };
-  //   if (sortColumn.property === sortProperty) {
-  //     sortColumn.sortOrder = sortColumn.sortOrder === "asc" ? "desc" : "asc";
-  //   } else {
-  //     sortColumn.property = sortProperty;
-  //     sortColumn.sortOrder = "asc";
-  //   }
-  //   this.setState({
-  //     sortColumn
-  //   });
-  // };
+  renderSortIcon = column => {
+    if (column.sortable) {
+      const { sort } = this.props;
+      if (column.dataPath !== sort.property) {
+        return null;
+      }
+
+      if (sort.order === "asc") {
+        return <i className="fa fa-sort-asc" />;
+      }
+      console.log(`Rendering ${column.dataPath} with order: ${sort.order}`);
+      return <i className="fa fa-sort-desc" />;
+    }
+    return null;
+  };
 
   render() {
     const { columns } = this.props;
@@ -23,8 +26,12 @@ class TableHeader extends Component {
         <tr>
           {columns.map(column => {
             return (
-              <th scope="col" key={column.dataPath || column.key} onClick={() => this.props.onSort(column)}>
-                {column.label}
+              <th
+                scope="col"
+                key={column.dataPath || column.key}
+                onClick={() => this.props.onSort(column.dataPath)}
+              >
+                {column.label} {this.renderSortIcon(column)}
               </th>
             );
           })}
