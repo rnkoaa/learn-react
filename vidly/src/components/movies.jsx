@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+
+import {Link} from "react-router-dom";
+
 import Like from "./common/like";
 import Genres from "./genres";
 import Pagination from "./common/pagination";
@@ -16,7 +19,8 @@ class Movies extends Component {
     columns: [
       {
         label: "Title",
-        dataPath: "title",
+        // dataPath: "title",
+        content: (movie) => <Link to={`/movies/${movie._id}`}>{movie.title}</Link>,
         key: "title",
         sortable: true
       },
