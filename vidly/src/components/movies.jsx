@@ -131,6 +131,8 @@ class Movies extends Component {
 
   render() {
     const { sort, pageSize, currentPage } = this.state;
+    const {history} = this.props;
+
     const { length: count } = this.state.selectedMovies;
 
     if (count === 0) return <p> There are no movies in the database </p>;
@@ -142,7 +144,6 @@ class Movies extends Component {
     );
 
     const selectedMovies = paginate(sortedMovies, currentPage, pageSize);
-    console.log(selectedMovies)
     return (
       <div className="row">
         <div className="col-2">
@@ -150,6 +151,9 @@ class Movies extends Component {
         </div>
         <div className="col">
           <p> There are {this.state.selectedMovies.length} Movies in the database</p>
+          <button className="btn btn-primary mb-2" onClick={() => history.push("/movies/new-movie")}>
+            Create Movie
+          </button>
           <Table
             rowKeyProperty={"_id"}
             data={selectedMovies}
