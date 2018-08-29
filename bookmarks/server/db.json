@@ -1,0 +1,165 @@
+{
+    "bookmarks": [{
+            "id": "1",
+            "name": "cnn",
+            "url": "https://cnn.com",
+            "createdAt": 1535554757587,
+            "archived": false,
+            "updatedAt": 1535554769953,
+            "tags": ["news"]
+        },
+        {
+            "id": "2",
+            "name": "Ghanaweb",
+            "url": "https://ghanaweb.com",
+            "createdAt": 1535554779303,
+            "archived": false,
+            "updatedAt": 1535554790124,
+            "tags": ["news"]
+        },
+        {
+            "id": "3",
+            "name": "Dzone",
+            "url": "https://dzone.com",
+            "createdAt": 1535554799415,
+            "updatedAt": 1535554809909,
+            "archived": false,
+            "tags": ["tech", "tech news"]
+        },
+        {
+            "id": "4",
+            "name": "Bootstrap",
+            "url": "https://getbootstrap.com",
+            "createdAt": 1535555309935,
+            "archived": false,
+            "updatedAt": 1535555324707,
+            "tags": ["bootstrap"]
+        },
+        {
+            "id": "5",
+            "name": "Dealsea",
+            "url": "https://dealsea.com",
+            "createdAt": 1535555338517,
+            "archived": false,
+            "updatedAt": 1535555349839,
+            "tags": []
+        },
+        {
+            "id": "6",
+            "name": "Safari Books",
+            "url": "https://safaribooksonline.com",
+            "createdAt": 1535555362445,
+            "archived": false,
+            "updatedAt": 1535555377901,
+            "tags": []
+        },
+        {
+            "id": "7",
+            "name": "reactstrap",
+            "url": "https://reactstrap.github.io/utilities/clearfix/",
+            "createdAt": 1535555396146,
+            "archived": false,
+            "updatedAt": 1535555406366,
+            "tags": []
+        },
+        {
+            "id": "8",
+            "name": "Movie Db api documentation",
+            "url": "https://www.themoviedb.org/documentation/api",
+            "createdAt": 1535555781699,
+            "archived": false,
+            "updatedAt": 1535555790804,
+            "tags": []
+        },
+        {
+            "id": "9",
+            "name": "Firestore Pricing",
+            "url": "https://firebase.google.com/pricing/",
+            "createdAt": 1535555799870,
+            "archived": false,
+            "updatedAt": 1535555808631,
+            "tags": []
+        },
+        {
+            "id": "10",
+            "name": "Firestore Authentication",
+            "url": "https://joshpitzalis.svbtle.com/auth",
+            "createdAt": 1535555820044,
+            "archived": false,
+            "updatedAt": 1535555827846,
+            "tags": []
+        },
+        {
+            "id": "11",
+            "name": "Deploy React on Firestore",
+            "url": "https://thewebsitedev.com/deploying-react-app-firebase/",
+            "createdAt": 1535555840758,
+            "updatedAt": 1535555849985,
+            "archived": false,
+            "tags": []
+        },
+        {
+            "id": "12",
+            "name": "Firestore CRUD",
+            "url": "https://joshpitzalis.svbtle.com/crud",
+            "createdAt": 1535556280624,
+            "archived": false,
+            "updatedAt": 1535556288039,
+            "tags": []
+        },
+        {
+            "id": "13",
+            "name": "Serverless Login Page",
+            "url": "https://serverless-stack.com/chapters/create-a-login-page.html",
+            "createdAt": 1535556296386,
+            "archived": false,
+            "updatedAt": 1535556304680,
+            "tags": []
+        },
+        {
+            "id": "14",
+            "name": "Ansible",
+            "url": "http://www.mydailytutorials.com/category/tutorials/ansible/",
+            "createdAt": 1535556315173,
+            "archived": false,
+            "updatedAt": 1535556323798,
+            "tags": []
+        },
+        {
+            "id": "15",
+            "name": "Gradle Profile Support",
+            "url": "https://www.credera.com/blog/technology-insights/java/gradle-profiles-for-multi-project-spring-boot-applications/",
+            "createdAt": 1535556358448,
+            "updatedAt": 1535556366561,
+            "archived": false,
+            "tags": []
+        },
+        {
+            "id": "16",
+            "name": "Learn Rxjs",
+            "url": "https://www.learnrxjs.io/operators/creation/empty.html",
+            "createdAt": 1535554872482,
+            "updatedAt": 1535554880793,
+            "archived": false,
+            "tags": []
+        },
+        {
+            "id": "17",
+            "name": "Apache Camel",
+            "url": "http://www.javarticles.com/2015/06/apache-camel-transforming-using-simple-expression.html",
+            "createdAt": 1535554862490,
+            "archived": false,
+            "updatedAt": 1535554855654,
+            "tags": []
+        },
+        {
+            "id": "18",
+            "name": "github",
+            "url": "https://github.com",
+            "createdAt": 1535554846899,
+            "archived": false,
+            "updatedAt": 1535554832732,
+            "tags": []
+        }
+    ]
+}
