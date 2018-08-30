@@ -4,6 +4,17 @@ body {
   font-family: sans-serif;
 }
 
+h2 {
+  font-size: 24px;
+}
+.h1, .h2, .h3, h1, h2, h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 100;
+}
+
 .starter-template {
   padding: 3rem 1.5rem;
   text-align: center;
@@ -11,7 +22,6 @@ body {
 .page-content {
   position: relative;
   background: #fafafa;
-  padding-top: 5.3125rem;
 }
 
 .wrapper-content {
@@ -71,4 +81,24 @@ body {
   font-size: 38px;
   display: block;
   color: #e8e9ea;
+}
+
+.white-bg {
+  background-color: #ffffff;
+}
+.border-bottom {
+  border-bottom: 1px solid #e7eaec;
+}
+.page-heading {
+  border-top: 0;
+  padding: 0 10px 20px 10px;
+}
+.wrapper {
+  padding: 0 20px;
+}
+.border-bottom {
+  border-bottom: 1px solid #e7eaec !important;
+}
+.border-bottom {
+  border-bottom: 1px solid #dee2e6 !important;
 }

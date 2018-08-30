@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import {Switch, Route, Redirect} from "react-router-dom";
 import './App.css';
 import AppActionBar from './components/app-action-bar';
 // import MainContainer from "./components/main-app-container";
-// import ArchivedBookmarks from "./components/archives";
+import ArchivedBookmarks from "./components/archives";
 import BookmarkContext from "./contexts/bookmark-context";
 import MainContainer from './components/main-app-container';
 import Bookmarks from './components/bookmarks';
 import BookmarkItem from "./components/bookmark-item";
+import NotFound from "./components/shared/not-found";
 
 class App extends Component {
     render() {
@@ -20,7 +22,7 @@ class App extends Component {
             // </React.Fragment>
             <React.Fragment>
                 <AppActionBar />
-                <div className="page-content">
+                {/* <div className="page-content">
                     <div className="content clearfix">
                         <div className="container mb-5">
                             <div class="wrapper wrapper-content animated fadeInRight">
@@ -33,7 +35,14 @@ class App extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
+                <Switch>
+                    <Route path="/bookmarks" component={Bookmarks} />
+                    <Route path="/notfound" component={NotFound} />
+                    <Route path="/archives" component={ArchivedBookmarks} />
+                    <Route path="/" component={Bookmarks} />
+                    <Redirect to="/notfound" />
+                </Switch>
             </React.Fragment>
         );
     }
