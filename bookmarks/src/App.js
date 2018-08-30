@@ -10,6 +10,7 @@ import MainContainer from './components/main-app-container';
 import Bookmarks from './components/bookmarks';
 import BookmarkItem from "./components/bookmark-item";
 import NotFound from "./components/shared/not-found";
+import AddBookmarkItemForm from './components/add-bookmark-form';
 
 class App extends Component {
     render() {
@@ -38,6 +39,7 @@ class App extends Component {
                 </div> */}
                 <Switch>
                     <Route path="/bookmarks" component={Bookmarks} />
+                    <Route path="/new-bookmark" component={AddBookmarkItemForm} />
                     <Route path="/notfound" component={NotFound} />
                     <Route path="/archives" component={ArchivedBookmarks} />
                     <Route path="/" component={Bookmarks} />

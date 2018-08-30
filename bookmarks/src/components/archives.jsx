@@ -10,7 +10,7 @@ class ArchivedBookmarks extends Component {
       <div className="page-content">
         <div className="content clearfix">
           <div className="container">
-            <div class="wrapper wrapper-content">
+            <div class="wrapper-content">
               <div class="col-sm-4">
                 <h2>Archived Bookmarks</h2>
                 <ol class="breadcrumb">

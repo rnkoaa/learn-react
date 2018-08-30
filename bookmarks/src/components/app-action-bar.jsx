@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import {
+  withRouter
+} from 'react-router-dom'
+
+import {
   Collapse,
   Navbar,
   NavbarToggler,
@@ -26,6 +30,7 @@ class AppActionBar extends Component {
 
   addBookmark = () => {
     console.log("Add Todo Action clicked");
+    this.props.history.replace("/new-bookmark");  
   };
   render() {
     return (
@@ -57,5 +62,4 @@ class AppActionBar extends Component {
     );
   }
 }
-
-export default AppActionBar;
+export default withRouter(AppActionBar);
