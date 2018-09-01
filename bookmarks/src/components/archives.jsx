@@ -1,43 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
 import MainContainer from "./main-app-container";
 import BookmarkContext from "../contexts/bookmark-context";
 import BookmarkItem from "./bookmark-item";
-class ArchivedBookmarks extends Component {
-  state = {};
-  render() {
-    // return <BookmarkContext.Consumer>{context => {}}</BookmarkContext.Consumer>;
-    return (
-      <div className="page-content">
-        <div className="content clearfix">
-          <div className="container">
-            <div class="wrapper-content">
-              <div class="col-sm-4">
-                <h2>Archived Bookmarks</h2>
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
-                    <a href="index.html">Home</a>
-                  </li>
-                  <li class="breadcrumb-item active">
-                    <strong>Archives</strong>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-          <div className="container mb-5">
-            <div class="wrapper wrapper-content animated fadeInRight">
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+const ArchivedBookmarks = () => {
+  const renderUI = (bookmarks) => {
+    if (bookmarks && bookmarks.length > 0) {
+      return bookmarks.map(bookmark => {
+        return (
+          <BookmarkItem key={bookmark.id} item={bookmark} />
+        );
+      });
+    } else {
+      return <h1>No Bookmarks</h1>
+    }
   }
+
+  return (<MainContainer pageHeader={"Archived Bookmarks"} archived={true}>
+    {
+      <ul>
+        <BookmarkContext.Consumer>
+          {({ bookmarks, dispatch }) => {
+            return renderUI(bookmarks, dispatch);
+          }}
+        </BookmarkContext.Consumer>
+      </ul>
+    }
+  </MainContainer>
+  );
 }
 
 export default ArchivedBookmarks;

@@ -9,9 +9,5 @@ const BookmarkContext = React.createContext({
       return { ...state, isADuck: !state.isADuck };
     }
   };
-
-  export const ActionTypes = {
-    TOGGLE: "TOGGLE"
-  };
   
  export default BookmarkContext;
