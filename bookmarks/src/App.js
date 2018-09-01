@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import './App.css';
 import AppActionBar from './components/app-action-bar';
-import ArchivedBookmarks from "./components/archives";
 import Bookmarks from './components/bookmarks';
 import NotFound from "./components/shared/not-found";
 import AddBookmarkItemForm from './components/add-bookmark-form';

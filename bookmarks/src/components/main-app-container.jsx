@@ -3,8 +3,6 @@ import axios from "axios";
 import BookmarkContext from "../contexts/bookmark-context";
 import { ActionTypes } from "../contexts/action-types";
 
-import _ from "lodash";
-
 class MainContainer extends Component {
   state = {
     bookmarks: [],
