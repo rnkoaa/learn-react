@@ -3,11 +3,11 @@ import MainContainer from "./main-app-container";
 import BookmarkContext from "../contexts/bookmark-context";
 import BookmarkItem from "./bookmark-item";
 const ArchivedBookmarks = () => {
-  const renderUI = (bookmarks) => {
+  const renderUI = (bookmarks, dispatch) => {
     if (bookmarks && bookmarks.length > 0) {
       return bookmarks.map(bookmark => {
         return (
-          <BookmarkItem key={bookmark.id} item={bookmark} />
+          <BookmarkItem dispatch={dispatch} key={bookmark.id} item={bookmark} />
         );
       });
     } else {

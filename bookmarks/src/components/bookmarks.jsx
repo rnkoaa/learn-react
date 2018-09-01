@@ -7,9 +7,6 @@ const Bookmarks = () => {
     if (bookmarks && bookmarks.length > 0) {
       return bookmarks.map(bookmark => {
         return (
-          // <li onClick={() => dispatch({ type: ActionTypes.TOGGLE, payload: bookmark })} key={bookmark.id}>
-          //   {bookmark.name}
-          // </li>
           <BookmarkItem dispatch={dispatch} key={bookmark.id} item={bookmark} />
         );
       });

@@ -10,7 +10,8 @@ https://codesandbox.io/s/kw25vnv25v
 https://medium.com/@mail.shobhitghai/react-context-api-2344dd784772
 https://codesandbox.io/embed/7rmwvl3w1
 
- http -v PUT httpbin.org/put API-Key:foo hello=world url='Hello world'
+http -v PUT httpbin.org/put API-Key:foo hello=world url='Hello world'
+http -v PUT :3001/bookmarks < input.json
 
  faker
  lodash

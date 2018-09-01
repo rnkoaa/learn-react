@@ -11,26 +11,36 @@ class MainContainer extends Component {
     archived: false,
     pageTitle: "",
     dispatch: ({ action, payload }) => {
-      // this.setState(state => reducer(state, action));
-      // console.log("Dispatched Action: ", action, payload);
       switch (action) {
         case ActionTypes.DELETE_BOOKMARK:
-          console.log("Deleting bookmark: ", payload);
           axios.delete(`http://localhost:3001/bookmarks/${payload.id}`)
             .then(response => {
-              console.log(response);
               if (response.status === 200) {
-                const filteredBookmarks = this.state.bookmarks.filter(item => item.id != payload.id);
+                const filteredBookmarks = this.state.bookmarks.filter(item => item.id !== payload.id);
                 this.setState({ bookmarks: filteredBookmarks });
               }
             });
 
           break;
         case ActionTypes.ARCHIVE_BOOKMARK:
-          console.log("Archiving bookmark: ", payload);
+          payload.archived = true;
+          axios.put(`http://localhost:3001/bookmarks/${payload.id}`, payload)
+            .then(response => {
+              if (response.status === 200) {
+                const filteredBookmarks = this.state.bookmarks.filter(item => item.id !== payload.id);
+                this.setState({ bookmarks: filteredBookmarks });
+              }
+            });
           break;
         case ActionTypes.RESTORE_ARCHIVE_BOOKMARK:
-          console.log("Restoring bookmark: ", payload);
+          payload.archived = false;
+          axios.put(`http://localhost:3001/bookmarks/${payload.id}`, payload)
+            .then(response => {
+              if (response.status === 200) {
+                const filteredBookmarks = this.state.bookmarks.filter(item => item.id !== payload.id);
+                this.setState({ bookmarks: filteredBookmarks });
+              }
+            });
           break;
         case ActionTypes.CREATE_BOOKMARK:
           console.log("Creating new bookmark: ", payload);
