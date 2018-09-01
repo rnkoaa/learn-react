@@ -1,16 +1,10 @@
 import React from 'react';
 import {
     withRouter
-  } from 'react-router-dom'
-// import { ActionTypes } from '../contexts/action-types';
+} from 'react-router-dom'
 import axios from 'axios';
 
 const AddBookmarkItemForm = (props) => {
-    const bookmarkReset = {
-        websiteName: "",
-        websiteUrl: "" 
-    };
-
     const bookmark = {
         websiteName: "",
         websiteUrl: ""
@@ -19,18 +13,14 @@ const AddBookmarkItemForm = (props) => {
         bookmark[event.target.name] = event.target.value;
 
     }
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        // console.log(bookmark);
-       // props.dispatch(ActionTypes.CREATE_BOOKMARK, bookmark);
-       axios.post(`http://localhost:3001/bookmarks`, bookmark)
-      .then(res => {
-        // console.log(res);
-        // console.log(res.data);
-        props.history.replace("/");  
-      })
-    
+        axios.post(`http://localhost:3001/bookmarks`, bookmark)
+            .then(res => {
+                props.history.replace("/");
+            })
+
     }
 
     return (<div className="page-content">

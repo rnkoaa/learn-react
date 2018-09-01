@@ -2,7 +2,8 @@ import React from "react";
 import BookmarkContext from "../contexts/bookmark-context";
 import MainContainer from "./main-app-container";
 import BookmarkItem from "./bookmark-item";
-const Bookmarks = () => {
+
+const Bookmarks = (props) => {
   const renderUI = (bookmarks, dispatch) => {
     if (bookmarks && bookmarks.length > 0) {
       return bookmarks.map(bookmark => {
@@ -16,7 +17,7 @@ const Bookmarks = () => {
   }
 
   return (
-    <MainContainer pageHeader={"Bookmarks"} archived={false}>
+    <MainContainer pageHeader={"Bookmarks"} archived={props.archived}>
       {
         <ul>
           <BookmarkContext.Consumer>

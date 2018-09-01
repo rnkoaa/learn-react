@@ -54,8 +54,6 @@ class MainContainer extends Component {
 
   componentDidMount() {
     const archivedReq = this.props.archived || false
-    console.log(this.props.pageHeader);
-    console.log(archivedReq);
     axios.get(`http://localhost:3001/bookmarks?archived=${archivedReq}`).then(res => {
       this.setState({
         bookmarks: res.data,

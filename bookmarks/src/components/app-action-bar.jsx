@@ -44,8 +44,7 @@ class AppActionBar extends Component {
                 <NavLink href="/archives">Archives</NavLink>
               </NavItem>
               <NavItem>
-                {/* <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink> */}
-                <NavLink href="/bookmarks">Bookmarks</NavLink>
+                <NavLink href="/">Bookmarks</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
