@@ -1,0 +1,78 @@
+state = {
+    data: {
+        title: "",
+        genreId: 0,
+        numberInStock: 0,
+        dailyRentalRate: ""
+    },
+    genres:[],
+    errors:{}
+}
+;
+
+schema = {
+    _id: Joi.string(),
+    title: Joi.string()
+        .required(),
+        .label("title"),
+    genreId: Joi.string()
+        .required(),
+        .label("Genre"),
+    title: JoiJoi.number()
+        .required(),
+        .min(0),
+        .max(100),
+        .label("Number in stock"),
+    dailyRentalRate: Joi.number()
+        .required(),
+        .min(0),
+        .max(10),
+        .label("Daily Rental Rate")
+}
+componentDidMount(){
+    const movieId = this.props.match.params.id;
+    if(movieId === "new") return;
+
+    const movie = getMovie(movieId);
+    if(!movie) return this.props.history.replace("/not-found");
+
+    this.setState({data: this.mapToViewModel(movie)})
+}
+
+doSubmit = () => {
+    saveMovie(this.state.data);
+    this.props.history.push("/movies")
+}
+
+mapToViewModel(movie){
+    return {
+        _id: movie._id,
+        title: movie.title,
+        genreId: movie.genre._id,
+        numberInStock: movie.numberInStock,
+        dailyRentalRate: movie.dailyRentalRate
+    };
+}
+
+state = {
+movies = [],
+genres = [],
+currentPage = 1,
+pageSize = 4,
+searchQuery = "",
+selectedGenre = null,
+sortColum: {path: "title", order: "asc"}
+}
+
+const SearchBox = ({value, onChange}) => {
+return (
+<input>
+    type="text",
+    name="query",
+    className="form-control my-3",
+    placeHolder="Search...",
+    value="value",
+    onChange={e => onChange(e.currentTarget.value)},
+</input>
+)
+}
