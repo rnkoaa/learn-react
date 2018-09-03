@@ -1,21 +1,12 @@
 {
   "bookmarks": [
     {
-      "id": 6,
-      "name": "Safari Books",
-      "url": "https://safaribooksonline.com",
-      "createdAt": 1535555362445,
-      "archived": true,
-      "updatedAt": 1535810185946,
-      "tags": []
-    },
-    {
       "id": 7,
       "name": "reactstrap",
       "url": "https://reactstrap.github.io/utilities/clearfix/",
       "createdAt": 1535555396146,
       "archived": false,
-      "updatedAt": 1535809251521,
+      "updatedAt": 1536006018449,
       "tags": []
     },
     {
@@ -24,7 +15,7 @@
       "url": "https://firebase.google.com/pricing/",
       "createdAt": 1535555799870,
       "archived": false,
-      "updatedAt": 1535555808631,
+      "updatedAt": 1536006020318,
       "tags": []
     },
     {
@@ -33,7 +24,7 @@
       "url": "https://joshpitzalis.svbtle.com/auth",
       "createdAt": 1535555820044,
       "archived": false,
-      "updatedAt": 1535555827846,
+      "updatedAt": 1536006058962,
       "tags": []
     },
     {
@@ -41,7 +32,7 @@
       "name": "Deploy React on Firestore",
       "url": "https://thewebsitedev.com/deploying-react-app-firebase/",
       "createdAt": 1535555840758,
-      "updatedAt": 1535555849985,
+      "updatedAt": 1536006059674,
       "archived": false,
       "tags": []
     },
@@ -51,7 +42,7 @@
       "url": "https://joshpitzalis.svbtle.com/crud",
       "createdAt": 1535556280624,
       "archived": false,
-      "updatedAt": 1535556288039,
+      "updatedAt": 1536006060547,
       "tags": []
     },
     {
@@ -68,8 +59,8 @@
       "name": "Gradle Profile Support",
       "url": "https://www.credera.com/blog/technology-insights/java/gradle-profiles-for-multi-project-spring-boot-applications/",
       "createdAt": 1535556358448,
-      "updatedAt": 1535556366561,
-      "archived": false,
+      "updatedAt": 1536006064951,
+      "archived": true,
       "tags": []
     },
     {
@@ -77,13 +68,13 @@
       "name": "Learn Rxjs",
       "url": "https://www.learnrxjs.io/operators/creation/empty.html",
       "createdAt": 1535554872482,
-      "updatedAt": 1535554880793,
-      "archived": false,
+      "updatedAt": 1536006066134,
+      "archived": true,
       "tags": []
     },
     {
       "createdAt": 1535807275196,
-      "updatedAt": 1535807275196,
+      "updatedAt": 1536006074920,
       "name": "Using Axios with React",
       "url": "https://alligator.io/react/axios-react/",
       "tags": [],
