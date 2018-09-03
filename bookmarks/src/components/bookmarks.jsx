@@ -8,7 +8,9 @@ import { ActionTypes } from "../contexts/action-types";
 const Bookmarks = (props) => {
   const renderUI = (bookmarkContainer) => {
     const { state, dispatch } = bookmarkContainer;
-    if (state.bookmarksLoaded) {
+    if (state.bookmarksLoading) {
+
+    } else if (state.bookmarksLoaded && state.bookmarks && state.bookmarks.length > 0) {
       const { bookmarks } = state;
       if (bookmarks && bookmarks.length > 0) {
         return bookmarks.map(bookmark => {
@@ -17,8 +19,9 @@ const Bookmarks = (props) => {
           );
         });
       }
+    } else {
+      return <h1>No Bookmarks</h1>
     }
-    return <h1>No Bookmarks</h1>
   }
 
   return (
@@ -27,7 +30,7 @@ const Bookmarks = (props) => {
       <Subscribe to={[BookmarkContainer]}>
         {
           bookmarkContainer => {
-           const archived = props.archived || false;
+            const archived = props.archived || false;
             if (!bookmarkContainer.state.bookmarksLoaded) {
               bookmarkContainer.dispatch({
                 action: ActionTypes.LOAD_BOOKMARKS, payload: {

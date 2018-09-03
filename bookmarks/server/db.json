@@ -1,15 +1,6 @@
 {
   "bookmarks": [
     {
-      "id": 7,
-      "name": "reactstrap",
-      "url": "https://reactstrap.github.io/utilities/clearfix/",
-      "createdAt": 1535555396146,
-      "archived": false,
-      "updatedAt": 1536006018449,
-      "tags": []
-    },
-    {
       "id": 9,
       "name": "Firestore Pricing",
       "url": "https://firebase.google.com/pricing/",
@@ -80,6 +71,15 @@
       "tags": [],
       "archived": false,
       "id": 21
+    },
+    {
+      "createdAt": 1536015419385,
+      "updatedAt": 1536015419385,
+      "name": "Safari books online",
+      "url": "https://alligator.io/react/axios-react/",
+      "tags": [],
+      "archived": false,
+      "id": 22
     }
   ]
 }

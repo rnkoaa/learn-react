@@ -1,7 +1,7 @@
 import { Container } from 'unstated';
-import axios from "axios";
 import { ActionTypes } from "./action-types";
 import BookmarkService from '../services/bookmark-service';
+import toastr from 'toastr'
 
 const bookmarkService = new BookmarkService();
 
@@ -29,6 +29,7 @@ class BookmarkContainer extends Container {
                 break;
             case ActionTypes.CREATE_BOOKMARK:
                 console.log("Creating new bookmark: ", payload);
+                this.saveBookmark(payload);
                 break;
             case ActionTypes.LOAD_BOOKMARKS:
                 payload = payload || {};
@@ -52,25 +53,37 @@ class BookmarkContainer extends Container {
             console.log("An error ocurred while trying to retrieve bookmarks....", err);
         }
     }
+
     updateBookmark = async (id, bookmark) => {
         try {
             const success = await bookmarkService.update(id, bookmark);
             if (success) {
                 const filteredBookmarks = this.state.bookmarks.filter(item => item.id !== bookmark.id);
                 this.setState({ bookmarks: filteredBookmarks });
+
+                this.showToast("Succesfully updated bookmark.", "success")
             }
         } catch (err) {
             console.log("An error ocurred while trying to update bookmark....", err);
         }
     }
+    saveBookmark = async (bookmark) => {
+        try {
+            const results = await bookmarkService.save(bookmark);
+            if (results) {
+                const { bookmarks } = this.state;
+                const updatedBooks = [...bookmarks];
+                updatedBooks.push(results)
+                console.log(updatedBooks);
+                this.setState({ bookmarks: updatedBooks });
 
-
-    addBookmark = bookmark => {
-        // const newTodo = { id: this.id++, marked: false, description: todo };
-        // this.setState({
-        //     todos: [...this.state.todos, newTodo]
-        // });
-    };
+                this.showToast("Succesfully saved bookmark.", "success")
+              
+            }
+        } catch (err) {
+            console.log("An error ocurred while trying to update bookmark....", err);
+        }
+    }
 
     removeBookmark = async (id) => {
         try {
@@ -78,11 +91,23 @@ class BookmarkContainer extends Container {
             if (success) {
                 const filteredBookmarks = this.state.bookmarks.filter(item => item.id !== id);
                 this.setState({ bookmarks: filteredBookmarks });
+                this.showToast("Succesfully removed bookmark.", "success")
             }
         } catch (err) {
             console.log("An error ocurred while trying to delete bookmark....", err);
         }
     };
+
+    showToast = (message, type) => {
+        toastr.options = {
+            positionClass: 'toast-top-right',
+            hideDuration: 300,
+            preventDuplicates: true,
+            timeOut: 1500
+        }
+        toastr.clear()
+        setTimeout(() => toastr.success(message), 300)
+    }
 }
 
 export default BookmarkContainer;
