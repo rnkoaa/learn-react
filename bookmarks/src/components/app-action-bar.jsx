@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import {
-  withRouter
-} from 'react-router-dom'
+import AddBookmarkModalForm from "./add-bookmark-modal-form";
+import { Subscribe } from "unstated";
+import { ActionTypes } from "../contexts/action-types";
+import BookmarkContainer from "../contexts/bookmark-container";
 
 import {
   Collapse,
@@ -11,15 +12,12 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
 } from "reactstrap";
 
 class AppActionBar extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    addBookmarkModalToggle: false
   };
 
   toggle = () => {
@@ -28,37 +26,57 @@ class AppActionBar extends Component {
     });
   };
 
-  addBookmark = () => {
-    console.log("Add Todo Action clicked");
-    this.props.history.replace("/new-bookmark");  
+  cancelBookmarkCreateForm = () => {
+    this.resetModal();
   };
+
+  resetModal = () => {
+    const { addBookmarkModalToggle } = this.state;
+    this.setState({
+      addBookmarkModalToggle: !addBookmarkModalToggle
+    });
+  }
+
+  handleSubmit = (dispatch, bookmark) => {
+    dispatch({ action: ActionTypes.CREATE_BOOKMARK, payload: bookmark });
+    this.resetModal();
+  }
+
   render() {
     return (
-      <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Bookmarks!</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/archives">Archives</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/">Bookmarks</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem onClick={this.addBookmark}>Add Bookmark</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+      <Subscribe to={[BookmarkContainer]}>
+        {
+          bookmarkContainer => {
+            return (<div>
+              <Navbar color="light" light expand="md">
+                <NavbarBrand href="/">Bookmarks!</NavbarBrand>
+                <NavbarToggler onClick={this.toggle} />
+                <Collapse isOpen={this.state.isOpen} navbar>
+                  <Nav className="ml-auto" navbar>
+                    <NavItem>
+                      <NavLink className="clickable"
+                        onClick={() => this.setState({ addBookmarkModalToggle: true })}>
+                        Add Bookmark Modal
+                      </NavLink>
+                      <AddBookmarkModalForm
+                        onSubmit={(bookmark) => this.handleSubmit(bookmarkContainer.dispatch, bookmark)}
+                        modalToggle={this.state.addBookmarkModalToggle}
+                        cancelForm={this.cancelBookmarkCreateForm} />
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="/archives">Archives</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="/">Bookmarks</NavLink>
+                    </NavItem>
+                  </Nav>
+                </Collapse>
+              </Navbar>
+            </div>
+            )
+          }}
+      </Subscribe>
     );
   }
 }
-export default withRouter(AppActionBar);
+export default AppActionBar;
