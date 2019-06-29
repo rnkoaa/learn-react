@@ -2,6 +2,7 @@
 import React from 'react';
 
 export default React.createContext({
+  users:[],
   products: [
     { id: 'p1', title: 'Gaming Mouse', price: 29.99 },
     { id: 'p2', title: 'Harry Potter 3', price: 9.99 },
