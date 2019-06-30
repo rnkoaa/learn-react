@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { UsersContext } from "../context";
+import UserContext from '../context/users-context';;
 
 const UserDetails = () => {
   //get the selected user from the usersContext
-  const { selectedUser } = useContext(UsersContext);
+  const { selectedUser, setSelectedUser } = useContext(UserContext);
 
   return (
     <div>

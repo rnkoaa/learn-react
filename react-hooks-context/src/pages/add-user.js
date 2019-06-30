@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import clsx from "clsx";
-import { UsersContext } from "../context";
+import UserContext from '../context/users-context';
 
 const AddUser = () => {
   const [userName, setUserName] = useState("");
-  const { addNewUser } = useContext(UsersContext);
+  // const { addNewUser } = useContext(UserContext);
 
   const handleChange = e => {
     setUserName(e.target.value);
@@ -24,7 +24,7 @@ const AddUser = () => {
         className={clsx("add-btn", {
           disabled: !userName
         })}
-        onClick={() => addNewUser(userName)}
+        // onClick={() => addNewUser(userName)}
         disabled={!userName}
       >
         Add

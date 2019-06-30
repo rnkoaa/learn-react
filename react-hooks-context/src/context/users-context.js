@@ -3,19 +3,7 @@ import PropTypes from "prop-types";
 
 
 export const UserContext = React.createContext({
-    users: [
-        {
-            'name': "Richard",
-            'id': 1
-        },{
-            'name': "Agyei",
-            'id': 2
-        },
-{
-            'name': "Kwame",
-            'id': 3 
-        }
-    ],
+    users: [],
     selectedUser: {},
     addUser: user => {},
     removeUser: user => {},

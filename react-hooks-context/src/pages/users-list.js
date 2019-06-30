@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import clsx from "clsx";
-
-import { UsersContext } from "../context";
+import UserContext from '../context/users-context'
 
 const UsersList = props => {
-  const usersContext = useContext(UsersContext);
+  const usersContext = useContext(UserContext);
 
   const { users, selectedUser, setSelectedUser } = usersContext;
 
