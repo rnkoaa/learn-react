@@ -1,5 +1,7 @@
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+export const ADD_USER = "addUser"
+export const REMOVE_USER = "removeUser"
 
 const addProductToCart = (product, state) => {
   const updatedCart = [...state.cart];
@@ -42,6 +44,27 @@ export const shopReducer = (state, action) => {
       return addProductToCart(action.product, state);
     case REMOVE_PRODUCT:
       return removeProductFromCart(action.productId, state);
+    default:
+      return state;
+  }
+};
+
+const addUser = (user, state) => {
+  console.log(`Adding user: ${user}`)
+}
+
+const removeUser = (userId, state) => {
+  console.log(`remove user: ${userId}`)
+}
+
+export const userReducer = (state, action) => {
+  switch (action.type) {
+    case ADD_USER:
+      // return addProductToCart(action.product, state);
+      return addUser(action.user, state)
+    case REMOVE_USER:
+      // return removeProductFromCart(action.productId, state);
+      return removeUser(action.userId, state)
     default:
       return state;
   }

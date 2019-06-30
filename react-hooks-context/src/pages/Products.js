@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import ShopContext from '../context/shop-context';
 import MainNavigation from '../components/MainNavigation';
 import './Products.css';
+import UserContext from '../context/users-context'
 
 const ProductsPage = props => {
+  const userContext = useContext(UserContext)
   return (
     <ShopContext.Consumer>
       {context => (
@@ -12,7 +14,8 @@ const ProductsPage = props => {
           <MainNavigation
             cartItemNumber={context.cart.reduce((count, curItem) => {
               return count + curItem.quantity;
-            }, 0)}
+            }, 0)} usersCount={userContext.users.length}
+
           />
           <main className="products">
             <ul>

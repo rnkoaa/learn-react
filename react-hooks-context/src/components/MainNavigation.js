@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './MainNavigation.css';
 
 const mainNavigation = props => {
+  useEffect(() => {
+
+    console.log(props.usersCount)
+  }, [])
   return (
     <header className="main-navigation">
       <nav>
@@ -12,7 +16,7 @@ const mainNavigation = props => {
             <NavLink to="/">Products </NavLink>
           </li>
 <li>
-            <NavLink to="/users">Users</NavLink>
+            <NavLink to="/users">Users {props.usersCount}</NavLink>
           </li>
           <li>
             <NavLink to="/cart">Cart ({props.cartItemNumber})</NavLink>

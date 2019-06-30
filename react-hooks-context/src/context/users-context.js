@@ -1,49 +1,69 @@
 import React, { useState } from 'react'
 import PropTypes from "prop-types";
 
-export const Context = React.createContext({})
 
-export const Provider = props => {
-    const {
-        users: initialUsers,
-        selectedUser: initialSelectedUsers,
-        children
-    } = props
+export const UserContext = React.createContext({
+    users: [
+        {
+            'name': "Richard",
+            'id': 1
+        },{
+            'name': "Agyei",
+            'id': 2
+        },
+{
+            'name': "Kwame",
+            'id': 3 
+        }
+    ],
+    selectedUser: {},
+    addUser: user => {},
+    removeUser: user => {},
+})
 
-    const [users, setUsers] = useState(initialUsers)
-    const [selectedUser, setSelectedUser] = useState(initialSelectedUsers);
+// export const Provider = props => {
+//     const {
+//         users: initialUsers,
+//         selectedUser: initialSelectedUsers,
+//         children
+//     } = props
 
-    const addNewUser = userName => {
-        const newUser = { id: new Date().getTime().toString(), name: userName };
-        setUsers(users.concat([newUser]));
-    };
+//     const [users, setUsers] = useState(initialUsers)
+//     const [selectedUser, setSelectedUser] = useState(initialSelectedUsers);
 
-    // Make the context object:
-    const usersContext = {
-        users,
-        setUsers,
-        selectedUser,
-        setSelectedUser,
-        addNewUser
-    };
+//     const addNewUser = userName => {
+//         const newUser = { id: new Date().getTime().toString(), name: userName };
+//         setUsers(users.concat([newUser]));
+//     };
 
-    return (
-        // pass the value in provider and return
-        <Context.Provider value={usersContext}>
-            {children}
-        </Context.Provider>
-    )
-}
+//     // Make the context object:
+//     const usersContext = {
+//         users,
+//         setUsers,
+//         selectedUser,
+//         setSelectedUser,
+//         addNewUser
+//     };
+
+//     return (
+//         // pass the value in provider and return
+//         <Context.Provider value={usersContext}>
+//             {children}
+//         </Context.Provider>
+//     )
+// }
 
 
-export const { Consumer } = Context;
+// export const { Consumer } = Context;
 
-Provider.propTypes = {
-  users: PropTypes.array,
-  selectedUser: PropTypes.object
-};
+// Provider.propTypes = {
+//   users: PropTypes.array,
+//   selectedUser: PropTypes.object
+// };
 
-Provider.defaultProps = {
-  users: [],
-  selectedUser: {}
-};
+// Provider.defaultProps = {
+//   users: [],
+//   selectedUser: {}
+// };
+
+export default UserContext
