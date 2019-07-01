@@ -1,11 +1,9 @@
 import React, { useRef, useContext } from 'react';
-import clsx from 'clsx';
 import UserContext from '../context/users-context';
 
 const AddUser = () => {
   const inputEl = useRef();
   const usersContext = useContext(UserContext);
-  const { addUser } = usersContext;
 
   const handleSubmit = e => {
     e.preventDefault();

@@ -2,11 +2,12 @@ import React, { useReducer } from 'react';
 
 import ShopContext from './shop-context';
 import UserContext from './users-context';
+import MainNavigation from '../components/MainNavigation';
 import {
   userReducer,
   shopReducer,
   ADD_USER,
-  REMOVE_USER,
+  // REMOVE_USER,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   SELECT_USER,
@@ -38,9 +39,9 @@ const GlobalState = props => {
     selectedUser: { id: 0 },
   });
 
-  const removeUser = userId => {
-    userDispatch({ type: REMOVE_USER, payload: userId });
-  };
+  // const removeUser = userId => {
+  //   userDispatch({ type: REMOVE_USER, payload: userId });
+  // };
 
   const addUser = user => {
     userDispatch({ type: ADD_USER, payload: user });
@@ -69,7 +70,15 @@ const GlobalState = props => {
           removeProductFromCart: removeProductFromCart,
         }}
       >
-        {props.children}
+        <>
+          <MainNavigation
+            cartItemNumber={cartState.cart.reduce((count, curItem) => {
+              return count + curItem.quantity;
+            }, 0)}
+            usersCount={usersState.users.length}
+          />
+          {props.children}
+        </>
       </ShopContext.Provider>
     </UserContext.Provider>
   );
