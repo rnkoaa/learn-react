@@ -5,22 +5,24 @@ import UserContext from '../context/users-context'
 const UsersList = props => {
   const usersContext = useContext(UserContext);
 
-  const { users, selectedUser, setSelectedUser } = usersContext;
+  // const { users, selectedUser, setSelectedUser } = usersContext;
 
   return (
     <div>
       <h4>Users: </h4>
-      {users.map(user => {
+      {usersContext.users.map(user => {
         // compose class name
         const userItemClassNames = clsx("user-item", {
-          "user-item-selected": user.id === selectedUser.id
+          "user-item-selected": user.id === usersContext.selectedUser.id
         });
 
         return (
           <div
-            className={userItemClassNames}
+            // className={userItemClassNames}
             key={user.id}
-            onClick={() => setSelectedUser(user)}
+            // onClick={() => usersContext.selectUser.bind(this, user.id)}
+
+            onClick={() => usersContext.selectUser(user.id)}
           >
             {user.name}
           </div>

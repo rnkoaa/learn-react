@@ -9,6 +9,7 @@ import {
   REMOVE_USER,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
+  SELECT_USER,
 } from './reducers';
 
 const GlobalState = props => {
@@ -19,21 +20,11 @@ const GlobalState = props => {
     { id: 'p4', title: 'Half-dried plant', price: 2.99 },
   ];
   const [cartState, dispatch] = useReducer(shopReducer, { cart: [] });
-  const [usersState, userDispatch] = useReducer(userReducer, {
-    users: [{ id: 1, name: 'richard' }, { id: 2, name: 'Kwame' }],
-  });
+
   const addProductToCart = product => {
     setTimeout(() => {
       dispatch({ type: ADD_PRODUCT, product: product });
     }, 700);
-  };
-
-  const removeUser = userId => {
-    userDispatch({ type: REMOVE_USER, userId: userId });
-  };
-
-  const addUser = user => {
-    userDispatch({ type: ADD_USER, user: user });
   };
 
   const removeProductFromCart = productId => {
@@ -42,14 +33,31 @@ const GlobalState = props => {
     }, 700);
   };
 
+  const [usersState, userDispatch] = useReducer(userReducer, {
+    users: [{ id: 1, name: 'richard' }, { id: 2, name: 'Kwame' }],
+    selectedUser: { id: 0 },
+  });
+
+  const removeUser = userId => {
+    userDispatch({ type: REMOVE_USER, payload: userId });
+  };
+
+  const addUser = user => {
+    userDispatch({ type: ADD_USER, payload: user });
+  };
+
+  const selectUser = userId => {
+    setTimeout(() => {
+      userDispatch({ type: SELECT_USER, payload: userId });
+    }, 500);
+  };
+
   return (
     <UserContext.Provider
       value={{
         users: usersState.users,
-        // users: [
-        //   {id: 1, name: "richard"}, {id: 2, name: "Kwame"}
-        // ],
-        selectedUser: {},
+        selectedUser: usersState.selectedUser,
+        selectUser: selectUser,
       }}
     >
       <ShopContext.Provider
