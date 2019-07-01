@@ -50,7 +50,9 @@ export const shopReducer = (state, action) => {
 };
 
 const addUser = (user, state) => {
-  console.log(`Adding user: ${user}`);
+  const { users}= state
+  users.push(user)
+  return {...state, users: users}
 };
 
 const selectUser = (userId, state) => {
@@ -69,7 +71,6 @@ const removeUser = (userId, state) => {
 export const userReducer = (state, action) => {
   switch (action.type) {
     case ADD_USER:
-      // return addProductToCart(action.product, state);
       return addUser(action.payload, state);
     case SELECT_USER:
       // set the selected users

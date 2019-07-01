@@ -57,6 +57,7 @@ const GlobalState = props => {
       value={{
         users: usersState.users,
         selectedUser: usersState.selectedUser,
+        addUser: addUser,
         selectUser: selectUser,
       }}
     >
