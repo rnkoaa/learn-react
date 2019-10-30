@@ -1,7 +1,14 @@
 import React from "react";
-import logo from "./logo.svg";
+import "date-fns";
+// import logo from "./logo.svg";
+import DateFnsUtils from "@date-io/date-fns";
 import "./App.css";
 import clsx from "clsx";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
 import {
   createStyles,
   makeStyles,
@@ -24,7 +31,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import { Collapse } from "@material-ui/core";
+import { Collapse, Grid } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
@@ -35,6 +42,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
 
 const drawerWidth = 240;
 
@@ -116,6 +131,26 @@ const useStyles = makeStyles((theme: Theme) =>
     tableRoot: {
       width: "100%"
     },
+    fab: {
+      margin: theme.spacing(1),
+      width: 40,
+      height: 40
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 240
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2)
+    },
+    tableHeaderRoot: {
+      flexGrow: 1
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: "center",
+      color: theme.palette.text.secondary
+    },
     tableWrapper: {
       maxHeight: 440,
       overflow: "auto"
@@ -177,6 +212,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     nested: {
       paddingLeft: theme.spacing(4)
+    },
+    tableActions: {
+      justifyContent: "flex-end",
+      alignItems: "flex-end"
     }
   })
 );
@@ -188,7 +227,26 @@ const App: React.FC = () => {
   const [subMenuOpen, setSubMenuOpen] = React.useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [age, setAge] = React.useState("");
 
+  // The first commit of Material-UI
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+    new Date("2014-08-18T21:11:54")
+  );
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
+
+  // const inputLabel = React.useRef<HTMLLabelElement>(null);
+  // const [labelWidth, setLabelWidth] = React.useState(0);
+  // React.useEffect(() => {
+  // setLabelWidth(inputLabel.current!.offsetWidth);
+  // }, []);
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setAge(event.target.value as string);
+  };
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -303,6 +361,77 @@ const App: React.FC = () => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <Paper>
+          <div className={classes.tableHeaderRoot}>
+            <Grid container spacing={3}>
+              <Grid item xs={6} sm={3}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6} sm={6}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container justify="space-around">
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      id="start-date"
+                      label="Date picker inline"
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      KeyboardButtonProps={{
+                        "aria-label": "change date"
+                      }}
+                    />
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      id="end-date"
+                      label="Date picker inline"
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      KeyboardButtonProps={{
+                        "aria-label": "change date"
+                      }}
+                    />
+                  </Grid>
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid
+                container
+                item
+                xs={6}
+                sm={3}
+                className={classes.tableActions}
+              >
+                <Fab color="primary" aria-label="add" className={classes.fab}>
+                  <AddIcon />
+                </Fab>
+                <Fab
+                  color="secondary"
+                  aria-label="edit"
+                  className={classes.fab}
+                >
+                  <EditIcon />
+                </Fab>
+              </Grid>
+            </Grid>
+          </div>
+        </Paper>
         <Paper className={classes.tableRoot}>
           <div className={classes.tableWrapper}>
             <Table stickyHeader aria-label="sticky table">
