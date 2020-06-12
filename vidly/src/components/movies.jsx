@@ -19,7 +19,6 @@ class Movies extends Component {
     columns: [
       {
         label: "Title",
-        // dataPath: "title",
         content: (movie) => <Link to={`/movies/${movie._id}`}>{movie.title}</Link>,
         key: "title",
         sortable: true
